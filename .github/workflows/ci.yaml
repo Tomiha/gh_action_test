@@ -16,8 +16,8 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      # - name: Checkout Repository
-      #   uses: actions/checkout@v4 #https://github.com/actions/checkout
+      - name: Checkout Repository
+        uses: actions/checkout@v4 #https://github.com/actions/checkout
 
       #CMake is already part of the runner :) (v3.30.5)
       # - name: Install CMake
