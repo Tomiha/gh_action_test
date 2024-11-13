@@ -8,18 +8,21 @@ on:
     branches:
       - main
 
+env:
+  BUILD_TYPE: Release
+
 jobs:
   build-project:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4 #https://github.com/actions/checkout
+      # - name: Checkout Repository
+      #   uses: actions/checkout@v4 #https://github.com/actions/checkout
 
-      - name: Install CMake
-        uses: jwlawson/actions-setup-cmake@v2 #https://github.com/marketplace/actions/actions-setup-cmake
-        with:
-          cmake-version: '3.20.x'
+      # - name: Install CMake
+      #   uses: jwlawson/actions-setup-cmake@v2 #https://github.com/marketplace/actions/actions-setup-cmake
+      #   with:
+      #     cmake-version: '3.20.x'
 
       - name: Test Cmake
         run: cmake --version
