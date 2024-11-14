@@ -39,11 +39,11 @@ jobs:
         shell: bash
         run: |
           if [ ${{steps.build.outcome}} == 'success' ]; then
-            echo "BADGE_MSG=passing" >> $GITHUB_ENV
-            echo "BADGE_COLOR=brightgreen" >> $GITHUB_ENV
+            echo "BADGE_MSG=passing" >> $GITHUB_OUTPUT
+            echo "BADGE_COLOR=brightgreen" >> $GITHUB_OUTPUT
           else
-            echo "BADGE_MSG=failed" >> $GITHUB_ENV
-            echo "BADGE_COLOR=red" >> $GITHUB_ENV
+            echo "BADGE_MSG=failed" >> $GITHUB_OUTPUT
+            echo "BADGE_COLOR=red" >> $GITHUB_OUTPUT
           fi
 
       # - name: OnFail
