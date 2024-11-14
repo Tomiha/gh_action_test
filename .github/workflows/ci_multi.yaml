@@ -51,7 +51,12 @@ jobs:
         run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
       - name: Build
-        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+        run: |
+          set +e
+          cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+          echo "exitcode=$build_exitcode"
+
+          exit "$build_exitcode"
 
       - name: Create Badge (succes)
         uses: Tomiha/gist-write-action@v1.0.0
