@@ -54,13 +54,13 @@ jobs:
         run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
       - name: Config On Fail
-        if: always() && (steps.seedBuild.outcome == 'failure')
+        if: always() && (steps.Build.outcome == 'failure')
         run: |
           echo "badge_message=failed" >> $GITHUB_ENV
           echo "badge_color=red" >> $GITHUB_ENV
 
       - name: Config On Success
-        if: always() && (steps.seedBuild.outcome == 'success')
+        if: always() && (steps.Build.outcome == 'success')
         run: |
           echo "badge_message=passing" >> $GITHUB_ENV
           echo "badge_color=brightgreen" >> $GITHUB_ENV
