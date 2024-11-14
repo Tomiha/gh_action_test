@@ -12,13 +12,15 @@ jobs:
 
     steps:
       - name: log-secret
-        run: |-
-          echo ${{secrets.GIST_BADGE_TOKEN}} | sed 's/./& /g
-      - name: deploy
         env:
-          GITHUB_TOKEN: ${{ secrets.GIST_BADGE_TOKEN }}
-        uses: sergeysova/gist-write-action@v1
-        with:
-          gist_id: 55955be55ba7293e21dff41424dc3ccc
-          file_name: badge.json
-          content: "{}"
+          GIST_TOKEN: ${{secrets.GIST_BADGE_TOKEN}}
+        run: |
+          echo $GIST_TOKEN
+      # - name: deploy
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GIST_BADGE_TOKEN }}
+      #   uses: sergeysova/gist-write-action@v1
+      #   with:
+      #     gist_id: 55955be55ba7293e21dff41424dc3ccc
+      #     file_name: badge.json
+      #     content: "{}"
