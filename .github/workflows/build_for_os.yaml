@@ -1,0 +1,48 @@
+name: BuildForOS
+
+on:
+  workflow_call:
+    inputs:
+      os:
+        required: true
+        type: string
+      gist_id:
+        required: true
+        type: string
+      build_type:
+        required: false
+        type: string
+        default: Release
+
+jobs:
+  build-project:
+    runs-on: ${{inputs.os}}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4 #https://github.com/actions/checkout
+
+      - name: Configure CMake
+        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{inputs.build_type}}
+
+      - name: Build
+        id: build
+        run: cmake --build ${{github.workspace}}/build --config ${{inputs.build_type}}
+
+      - name: OnFail
+        if: always() && (steps.build.outcome == 'failure')
+        run: |
+          echo "badge_message=failed" >> $GITHUB_ENV
+          echo "badge_color=red" >> $GITHUB_ENV
+
+      - name: OnSuccess
+        if: always() && (steps.build.outcome == 'success')
+        run: |
+          echo "badge_message=passing" >> $GITHUB_ENV
+          echo "badge_color=brightgreen" >> $GITHUB_ENV
+
+  create-badge:
+    needs: build-project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo Variables
+        run: 'echo ${{env.badge_message}}'

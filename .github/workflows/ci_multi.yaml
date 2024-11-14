@@ -2,12 +2,12 @@
 name: CI_Multi
 
 on:
-  # push:
-  #   branches-ignore:
-  #     - main
   push:
-    branches:
+    branches-ignore:
       - main
+  # push:
+  #   branches:
+  #     - main
   # pull_request:
   #   branches:
   #     - main
