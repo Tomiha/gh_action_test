@@ -51,17 +51,25 @@ jobs:
         run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
       - name: Build
-        run: |
-          set +e
-          cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
-          echo "exitcode=$build_exitcode"
+        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
-          exit "$build_exitcode"
+      - name: Config On Fail
+        if: always() && (steps.seedBuild.outcome == 'failure'
+        run: |
+          echo "badge_message=failed" >> $GITHUB_ENV
+          echo "badge_color=red" >> $GITHUB_ENV
+
+      - name: Config On Success
+        if: always() && (steps.seedBuild.outcome == 'failure'
+        run: |
+          echo "badge_message=passing" >> $GITHUB_ENV
+          echo "badge_color=brightgreen" >> $GITHUB_ENV
 
       - name: Create Badge (succes)
+        if: always()
         uses: Tomiha/gist-write-action@v1.0.0
         with:
           GITHUB_TOKEN: ${{secrets.GIST_BADGE_TOKEN}}
           gist_id: ${{matrix.badge_gist_id}}
           file_name: badge.json
-          content: '{ "schemaVersion": 1, "label": "${{matrix.os}}", "message": "passing", "color": "brightgreen" }'
+          content: '{ "schemaVersion": 1, "label": "${{matrix.os}}", "message": "${{badge_message}}", "color": "${{env.badge_color}}" }'
