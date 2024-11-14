@@ -12,7 +12,7 @@ jobs:
 
     steps:
         - name: deploy
-          uses: sergeysova/gist-write-action@v1
+          uses: Drapersniper/gist-write-action@v1
           env:
             GITHUB_TOKEN: ${{secrets.GIST_BADGE_TOKEN}}
           with:        
