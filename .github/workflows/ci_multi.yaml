@@ -54,7 +54,7 @@ jobs:
         run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
       - name: Create Badge (succes)
-        uses: Tomiha/write-to-gist@v1.0.0
+        uses: Tomiha/gist-write-action@v1.0.0
         with:
           GITHUB_TOKEN: ${{secrets.GIST_BADGE_TOKEN}}
           gist_id: ${{matrix.badge_gist_id}}
