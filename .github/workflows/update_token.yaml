@@ -11,11 +11,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-        - name: deploy
-          uses: Tomiha/gist-write-action@v1.0.0
-          env:
-            GITHUB_TOKEN: ${{secrets.GIST_BADGE_TOKEN}}
-          with:        
-            gist_id: 55955be55ba7293e21dff41424dc3ccc
-            file_name: badge.json
-            content: "{}"
+        - name: Create Awesome Badge
+          uses: schneegans/dynamic-badges-action@v1.7.0
+          with:
+            auth: ${{secrets.GIST_BADGE_TOKEN}}
+            gistID: 55955be55ba7293e21dff41424dc3ccc
+            filename: badge.json
+            label: ubuntu
+            message: Pass
+            color: green
+            namedLogo: ubuntu
+            logoColor: f5f5f5
