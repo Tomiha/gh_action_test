@@ -54,6 +54,8 @@ jobs:
       - name: Create Badge
         if: always()
         uses: Tomiha/gist-write-action@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{secrets.GIST_BADGE_TOKEN}}
         with:
           GITHUB_TOKEN: ${{secrets.GIST_BADGE_TOKEN}}
           gist_id: ${{inputs.gist_id}}
