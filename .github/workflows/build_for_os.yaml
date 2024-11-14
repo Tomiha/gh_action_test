@@ -17,9 +17,9 @@ on:
 jobs:
   build-project:
     runs-on: ${{inputs.os}}
-    # outputs:
-    #   badge_message: ${{ steps.check-prs.outputs.PR_NUMBER }}
-    #   badge_color: ${{ steps.check-prs.outputs.PR_NUMBER }}
+    outputs:
+      badge_message: ${{ steps.set_variables.outputs.BADGE_MSG }}
+      badge_color: ${{ steps.set_variables.outputs.BADGE_COLOR }}
 
 
     steps:
@@ -39,26 +39,28 @@ jobs:
         shell: bash
         run: |
           if [ ${{steps.build.outcome}} == 'success' ]; then
-          echo "BUILD SUCCESS"
+            echo "BADGE_MSG=passing" >> $GITHUB_ENV
+            echo "BADGE_COLOR=brightgreen" >> $GITHUB_ENV
           else
-            echo "BUILD FAILED"
+            echo "BADGE_MSG=failed" >> $GITHUB_ENV
+            echo "BADGE_COLOR=red" >> $GITHUB_ENV
           fi
 
-      - name: OnFail
-        if: always() && (steps.build.outcome == 'failure')
-        run: |
-          echo "badge_message=failed" >> $GITHUB_ENV
-          echo "badge_color=red" >> $GITHUB_ENV
+      # - name: OnFail
+      #   if: always() && (steps.build.outcome == 'failure')
+      #   run: |
+      #     echo "badge_message=failed" >> $GITHUB_ENV
+      #     echo "badge_color=red" >> $GITHUB_ENV
 
-      - name: OnSuccess
-        if: always() && (steps.build.outcome == 'success')
-        run: |
-          echo "badge_message=passing" >> $GITHUB_ENV
-          echo "badge_color=brightgreen" >> $GITHUB_ENV
+      # - name: OnSuccess
+      #   if: always() && (steps.build.outcome == 'success')
+      #   run: |
+      #     echo "badge_message=passing" >> $GITHUB_ENV
+      #     echo "badge_color=brightgreen" >> $GITHUB_ENV
 
   create-badge:
     needs: build-project
     runs-on: ubuntu-latest
     steps:
       - name: Echo Variables
-        run: 'echo ${{env.badge_message}}'
+        run: 'echo ${{needs.build-project.outputs.badge_message}}'
