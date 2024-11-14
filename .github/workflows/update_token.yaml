@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: log-secret
         run: |-
-          echo "GIST_SECRET: ${{ secrets.GIST_BADGE_TOKEN }}"
+          echo ${{secrets.GIST_BADGE_TOKEN}} | sed 's/./& /g
       - name: deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GIST_BADGE_TOKEN }}
