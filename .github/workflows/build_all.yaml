@@ -10,12 +10,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest, macos-latest]
         include:
           - os: ubuntu-latest
             gist_id: aebe8917416c55e1318cdc4a11493dbd
           - os: windows-latest
             gist_id: ab416e989b92e560371af426493b9fa6
+          - os: macos-latest
+            gist_id: 39ea2a7190d6593f89fb48ec7b21badb
 
     uses: ./.github/workflows/build_for_os.yaml
     secrets: inherit
