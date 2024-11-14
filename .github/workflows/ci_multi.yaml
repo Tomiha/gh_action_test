@@ -2,12 +2,12 @@
 name: CI_Multi
 
 on:
-  push:
-    branches-ignore:
-      - main
   # push:
-  #   branches:
+  #   branches-ignore:
   #     - main
+  push:
+    branches:
+      - main
   # pull_request:
   #   branches:
   #     - main
@@ -24,19 +24,39 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            badge_gist_id: aebe8917416c55e1318cdc4a11493dbd
+          - os: windows-latest
+            badge_gist_id: ab416e989b92e560371af426493b9fa6
+
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v4 #https://github.com/actions/checkout
+      - name: print gist id
+        run: 'echo ${{matrix.badge_gist_id}}'
 
-      #CMake is already part of the runner :) (v3.30.5)
-      # - name: Install CMake
-      #   uses: jwlawson/actions-setup-cmake@v2 #https://github.com/marketplace/actions/actions-setup-cmake
+      - name: print os
+        run: 'echo ${{matrix.os}}'
+
+      # - name: Checkout Repository
+      #   uses: actions/checkout@v4 #https://github.com/actions/checkout
+
+      # #CMake is already part of the runner :) (v3.30.5)
+      # # - name: Install CMake
+      # #   uses: jwlawson/actions-setup-cmake@v2 #https://github.com/marketplace/actions/actions-setup-cmake
+      # #   with:
+      # #     cmake-version: '3.20.x'
+
+      # - name: Configure CMake
+      #   run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+      # - name: Build
+      #   run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+
+      # - name: Create Badge (succes)
+      #   uses: Tomiha/write-to-gist@v1.0.0
       #   with:
-      #     cmake-version: '3.20.x'
-
-      - name: Configure CMake
-        run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-
-      - name: Build
-        run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
+      #     GITHUB_TOKEN: ${{secrets.GIST_BADGE_TOKEN}}
+      #     gist_id: ${{matrix.badge_gist_id}}
+      #     file_name: badge.json
+      #     content: "{}"
