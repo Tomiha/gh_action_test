@@ -46,21 +46,16 @@ jobs:
             echo "BADGE_COLOR=red" >> $GITHUB_OUTPUT
           fi
 
-      # - name: OnFail
-      #   if: always() && (steps.build.outcome == 'failure')
-      #   run: |
-      #     echo "badge_message=failed" >> $GITHUB_ENV
-      #     echo "badge_color=red" >> $GITHUB_ENV
-
-      # - name: OnSuccess
-      #   if: always() && (steps.build.outcome == 'success')
-      #   run: |
-      #     echo "badge_message=passing" >> $GITHUB_ENV
-      #     echo "badge_color=brightgreen" >> $GITHUB_ENV
-
   create-badge:
     needs: build-project
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Echo Variables
-        run: 'echo ${{needs.build-project.outputs.badge_message}}'
+      - name: Create Badge
+        if: always()
+        uses: Tomiha/gist-write-action@v1.0.0
+        with:
+          GITHUB_TOKEN: ${{secrets.GIST_BADGE_TOKEN}}
+          gist_id: ${{inputs.gist_id}}
+          file_name: badge.json
+          content: '{ "schemaVersion": 1, "label": "${{inputs.os}}", "message": "${{needs.build-project.outputs.badge_message}}", "color": "${{needs.build-project.outputs.badge_color}}" }'
