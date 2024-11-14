@@ -11,16 +11,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: "check is GIST_BADGE_TOKEN exists"
-        env: 
-            super_secret: ${{secrets.GIST_BADGE_TOKEN}}
-        if: ${{ env.super_secret == '' }}
-        run: 'echo the secret \"GIST_BADGE_TOKEN\" has not been made; echo please go to \"settings \> secrets \> actions\" to create it'
-        # - name: deploy
-        #   env:
-        #     GITHUB_TOKEN: ${{ secrets.GIST_BADGE_TOKEN }}
-        #   uses: sergeysova/gist-write-action@v1
-        #   with:
-        #     gist_id: 55955be55ba7293e21dff41424dc3ccc
-        #     file_name: badge.json
-        #     content: "{}"
+        - name: deploy
+          env:
+            GITHUB_TOKEN: ${{ secrets.GIST_BADGE_TOKEN }}
+          uses: sergeysova/gist-write-action@v1
+          with:
+            GITHUB_TOKEN: ${{secrets.GIST_BADGE_TOKEN}}
+            gist_id: 55955be55ba7293e21dff41424dc3ccc
+            file_name: badge.json
+            content: "{}"
