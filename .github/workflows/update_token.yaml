@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: "check is MY_SECRET exists"
+      - name: "check is GIST_BADGE_TOKEN exists"
         env: 
-            super_secret: ${{ secrets.GIST_BADGE_TOKEN }}
+            super_secret: ${{secrets.GIST_BADGE_TOKEN}}
         if: ${{ env.super_secret == '' }}
-        run: 'echo "echo the secret \"MY_SECRET\" has not been made; echo please go to \"settings \> secrets \> actions\" to create it"'
+        run: 'echo the secret \"GIST_BADGE_TOKEN\" has not been made; echo please go to \"settings \> secrets \> actions\" to create it'
         # - name: deploy
         #   env:
         #     GITHUB_TOKEN: ${{ secrets.GIST_BADGE_TOKEN }}
