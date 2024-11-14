@@ -72,4 +72,4 @@ jobs:
           GITHUB_TOKEN: ${{secrets.GIST_BADGE_TOKEN}}
           gist_id: ${{matrix.badge_gist_id}}
           file_name: badge.json
-          content: '{ "schemaVersion": 1, "label": "${{matrix.os}}", "message": "${{badge_message}}", "color": "${{env.badge_color}}" }'
+          content: '{ "schemaVersion": 1, "label": "${{matrix.os}}", "message": "${{env.badge_message}}", "color": "${{env.badge_color}}" }'
