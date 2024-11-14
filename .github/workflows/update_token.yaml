@@ -12,9 +12,9 @@ jobs:
 
     steps:
       - name: deploy
-        uses: exuanbo/actions-deploy-gist@v1
+        uses: sergeysova/gist-write-action@v1
         with:
           token: ${{ secrets.GIST_BADGE_TOKEN }}
           gist_id: 55955be55ba7293e21dff41424dc3ccc
-          file_path: badge.json
-          file_type: json
+          file_name: badge.json
+          content: "{}"
