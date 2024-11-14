@@ -1,0 +1,19 @@
+name: update-gist-test
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+
+jobs:
+  deploy-to-gist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: deploy
+        uses: sergeysova/gist-write-action@v1
+        with:
+          gist_id: 55955be55ba7293e21dff41424dc3ccc
+          file_name: badge.json
+          content: "{}"
