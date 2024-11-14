@@ -51,16 +51,17 @@ jobs:
         run: cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
       - name: Build
+        id: build
         run: cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}}
 
       - name: Config On Fail
-        if: always() && (steps.Build.outcome == 'failure')
+        if: always() && (steps.build.outcome == 'failure')
         run: |
           echo "badge_message=failed" >> $GITHUB_ENV
           echo "badge_color=red" >> $GITHUB_ENV
 
       - name: Config On Success
-        if: always() && (steps.Build.outcome == 'success')
+        if: always() && (steps.build.outcome == 'success')
         run: |
           echo "badge_message=passing" >> $GITHUB_ENV
           echo "badge_color=brightgreen" >> $GITHUB_ENV
