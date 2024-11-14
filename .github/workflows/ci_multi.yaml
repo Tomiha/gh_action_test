@@ -66,11 +66,18 @@ jobs:
           echo "badge_message=passing" >> $GITHUB_ENV
           echo "badge_color=brightgreen" >> $GITHUB_ENV
 
-      - name: Create Badge (succes)
-        if: always()
-        uses: Tomiha/gist-write-action@v1.0.0
-        with:
-          GITHUB_TOKEN: ${{secrets.GIST_BADGE_TOKEN}}
-          gist_id: ${{matrix.badge_gist_id}}
-          file_name: badge.json
-          content: '{ "schemaVersion": 1, "label": "${{matrix.os}}", "message": "${{env.badge_message}}", "color": "${{env.badge_color}}" }'
+      # - name: Create Badge (succes)
+      #   if: always()
+      #   uses: Tomiha/gist-write-action@v1.0.0
+      #   with:
+      #     GITHUB_TOKEN: ${{secrets.GIST_BADGE_TOKEN}}
+      #     gist_id: ${{matrix.badge_gist_id}}
+      #     file_name: badge.json
+      #     content: '{ "schemaVersion": 1, "label": "${{matrix.os}}", "message": "${{env.badge_message}}", "color": "${{env.badge_color}}" }'
+
+  create_badge:
+    needs: build-project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo Variables
+        run: 'echo ${{env.badge_message}}'
