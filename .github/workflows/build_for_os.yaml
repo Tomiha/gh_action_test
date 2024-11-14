@@ -17,6 +17,11 @@ on:
 jobs:
   build-project:
     runs-on: ${{inputs.os}}
+    # outputs:
+    #   badge_message: ${{ steps.check-prs.outputs.PR_NUMBER }}
+    #   badge_color: ${{ steps.check-prs.outputs.PR_NUMBER }}
+
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4 #https://github.com/actions/checkout
@@ -27,6 +32,17 @@ jobs:
       - name: Build
         id: build
         run: cmake --build ${{github.workspace}}/build --config ${{inputs.build_type}}
+
+      - name: SetVariables
+        if: always()
+        id: set_variables
+        shell: bash
+        run: |
+          if [ ${{steps.build.outcome}} == 'success' ]; then
+          echo "BUILD SUCCESS"
+          else
+            echo "BUILD FAILED"
+          fi
 
       - name: OnFail
         if: always() && (steps.build.outcome == 'failure')
