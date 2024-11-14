@@ -14,7 +14,7 @@ jobs:
       - name: deploy
         uses: sergeysova/gist-write-action@v1
         with:
-          token: ${{ secrets.GIST_BADGE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GIST_BADGE_TOKEN }}
           gist_id: 55955be55ba7293e21dff41424dc3ccc
           file_name: badge.json
           content: "{}"
