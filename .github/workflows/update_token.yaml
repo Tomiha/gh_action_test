@@ -18,7 +18,7 @@ jobs:
             gistID: 55955be55ba7293e21dff41424dc3ccc
             filename: badge.json
             label: ubuntu
-            message: Pass
-            color: green
+            message: Fail
+            color: red
             namedLogo: ubuntu
             logoColor: f5f5f5
