@@ -57,7 +57,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{secrets.GIST_BADGE_TOKEN}}
         with:
-          GITHUB_TOKEN: ${{secrets.GIST_BADGE_TOKEN}}
           gist_id: ${{inputs.gist_id}}
           file_name: badge.json
           content: '{ "schemaVersion": 1, "label": "${{inputs.os}}", "message": "${{needs.build-project.outputs.badge_message}}", "color": "${{needs.build-project.outputs.badge_color}}" }'

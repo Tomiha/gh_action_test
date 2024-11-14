@@ -18,6 +18,7 @@ jobs:
             gist_id: ab416e989b92e560371af426493b9fa6
 
     uses: ./.github/workflows/build_for_os.yaml
+    secrets: inherit
     with:
       os: ${{matrix.os}}
       gist_id: ${{matrix.gist_id}}
