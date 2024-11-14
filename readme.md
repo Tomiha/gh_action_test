@@ -14,4 +14,4 @@
 # new badge
 
 
-![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/Tomiha/55955be55ba7293e21dff41424dc3ccc/raw/35a83633e885134bd31c570b301bcb8860150af7/badge.json)
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/Tomiha/55955be55ba7293e21dff41424dc3ccc/raw/badge.json)
